@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 
 // material-ui
 import Grid from '@mui/material/Grid2';
@@ -12,6 +12,28 @@ import AuthLogin from 'sections/auth/AuthLogin';
 // ================================|| JWT - LOGIN ||================================ //
 
 export default function Login() {
+
+  const navigate = useNavigate();
+
+  const handleLogin = (data) => {
+    console.log('User login data:', data);
+    
+    // fetch('https://example.com/api/login', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(data)
+    // })
+    // .then((response) => response.json())
+    // .then((result) => {
+    //   console.log('Login success:', result);
+    //   navigate('/dashboard')
+    //   // Simpan token ke localStorage jika diperlukan
+    // })
+    // .catch((error) => console.error('Login error:', error));
+
+    navigate('dashboard/default');
+  };
+
   return (
     <AuthWrapper>
       <Grid container spacing={3}>
@@ -24,9 +46,10 @@ export default function Login() {
           </Stack>
         </Grid>
         <Grid size={12}>
-          <AuthLogin />
+          <AuthLogin onLogin={handleLogin} />
         </Grid>
       </Grid>
     </AuthWrapper>
   );
 }
+

@@ -11,6 +11,8 @@ const DashboardDefault = Loadable(lazy(() => import('pages/dashboard/default')))
 const Color = Loadable(lazy(() => import('pages/component-overview/color')));
 const Typography = Loadable(lazy(() => import('pages/component-overview/typography')));
 const Shadow = Loadable(lazy(() => import('pages/component-overview/shadows')));
+const LoginPage = Loadable(lazy(() => import('pages/auth/Login')));
+const RegisterPage = Loadable(lazy(() => import('pages/auth/Register')));
 
 // render - sample page
 const SamplePage = Loadable(lazy(() => import('pages/extra-pages/sample-page')));
@@ -27,6 +29,7 @@ const MainRoutes = {
     },
     {
       path: 'dashboard',
+      element: <DashboardDefault />,
       children: [
         {
           path: 'default',
