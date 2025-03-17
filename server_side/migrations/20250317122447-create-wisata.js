@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('wisata', {
+    await queryInterface.createTable('wisatas', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -30,7 +30,7 @@ module.exports = {
       category_wisata_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'category_wisatas',
+          model: 'wisata_categories',
           key: 'id'
         },
         onUpdate: 'RESTRICT',

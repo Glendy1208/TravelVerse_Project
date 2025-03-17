@@ -9,15 +9,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      payment_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'payment_monthlies',
-          key: 'id'
-        },
-        onUpdate: 'RESTRICT',
-        onDelete: 'RESTRICT'
-      },
       promo_id: {
         type: Sequelize.INTEGER,
         references: {

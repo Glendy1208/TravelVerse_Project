@@ -12,7 +12,7 @@ module.exports = {
       tiket_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'wisata_tikets',
+          model: 'tikets',
           key: 'id'
         },
         onUpdate: 'RESTRICT',
