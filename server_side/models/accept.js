@@ -11,13 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // accept to hotel
-      accept.hasMany(models.hotel, {
+      accept.hasOne(models.hotel, {
         foreignKey: 'acc_id',
         as: 'hotel'
       });
 
       // accept to wisata
-      accept.hasMany(models.wisata, {
+      accept.hasOne(models.wisata, {
         foreignKey: 'acc_id',
         as: 'wisata'
       });
