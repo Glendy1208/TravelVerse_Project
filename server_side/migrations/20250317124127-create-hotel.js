@@ -10,16 +10,40 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       payment_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'payment_monthlies',
+          key: 'id'
+        },
+        onUpdate: 'RESTRICT',
+        onDelete: 'RESTRICT'
       },
       promo_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'promos',
+          key: 'id'
+        },
+        onUpdate: 'RESTRICT',
+        onDelete: 'RESTRICT'
       },
       user_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'users',
+          key: 'id'
+        },
+        onUpdate: 'RESTRICT',
+        onDelete: 'RESTRICT'
       },
       acc_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'accepts',
+          key: 'id'
+        },
+        onUpdate: 'RESTRICT',
+        onDelete: 'RESTRICT'
       },
       hotel_name: {
         type: Sequelize.STRING

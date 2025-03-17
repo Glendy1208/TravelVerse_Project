@@ -9,6 +9,24 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      wisata_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'wisatas',
+          key: 'id'
+        },
+        onUpdate: 'RESTRICT',
+        onDelete: 'RESTRICT'
+      },
+      hotel_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'hotels',
+          key: 'id'
+        },
+        onUpdate: 'RESTRICT',
+        onDelete: 'RESTRICT'
+      },
       payment_acc: {
         type: Sequelize.BOOLEAN
       },

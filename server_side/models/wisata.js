@@ -10,14 +10,48 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      // wisata to review wisata
+      wisata.hasMany(models.review_wisata, {
+        foreignKey: 'wisata_id',
+        as: 'review_wisata'
+      });
+
+      // wisata to user
+      wisata.belongsTo(models.user, {
+        foreignKey: 'user_id',
+        as: 'user'
+      });
+
+      // wisata to accept
+      wisata.belongsTo(models.accept, {
+        foreignKey: 'acc_id',
+        as: 'accept'
+      });
+
+      // wisata to category wisata
+      wisata.belongsTo(models.category_wisata, {
+        foreignKey: 'category_wisata_id',
+        as: 'category_wisata'
+      });
+
+      // wisata to payment monthly
+      wisata.hasMany(models.payment_monthly, {
+        foreignKey: 'wisata_id',
+        as: 'payment_monthly'
+      });
+
+      // wisata to tiket
+      wisata.hasOne(models.tiket, {
+        foreignKey: 'wisata_id',
+        as: 'tiket'
+      });
     }
+
   }
   wisata.init({
     user_id: DataTypes.INTEGER,
     acc_id: DataTypes.INTEGER,
     category_wisata_id: DataTypes.INTEGER,
-    payment_id: DataTypes.INTEGER,
     wisata_name: DataTypes.STRING,
     wisata_location: DataTypes.STRING,
     wisata_koordinat: DataTypes.STRING,

@@ -10,7 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      // wisata picture to pic category
+      wisata_picture.belongsTo(models.pic_category, {
+        foreignKey: 'pic_category_id',
+        as: 'pic_category'
+      });
     }
   }
   wisata_picture.init({

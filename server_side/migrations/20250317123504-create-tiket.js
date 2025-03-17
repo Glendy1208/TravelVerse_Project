@@ -10,10 +10,22 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       wisata_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'wisatas',
+          key: 'id'
+        },
+        onUpdate: 'RESTRICT',
+        onDelete: 'RESTRICT'
       },
       promo_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'promos',
+          key: 'id'
+        },
+        onUpdate: 'RESTRICT',
+        onDelete: 'RESTRICT'
       },
       tiket_price: {
         type: Sequelize.STRING

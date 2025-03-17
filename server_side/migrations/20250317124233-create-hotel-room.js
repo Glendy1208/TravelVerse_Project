@@ -10,7 +10,13 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       hotel_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'hotels',
+          key: 'id'
+        },
+        onUpdate: 'restrict',
+        onDelete: 'restrict'
       },
       room_number: {
         type: Sequelize.INTEGER

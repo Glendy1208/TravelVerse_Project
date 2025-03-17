@@ -10,16 +10,40 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       star_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'star_categories',
+          key: 'id'
+        },
+        onUpdate: 'restrict',
+        onDelete: 'restrict'
       },
       wisata_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'wisatas',
+          key: 'id'
+        },
+        onUpdate: 'restrict',
+        onDelete: 'restrict'
       },
       user_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'users',
+          key: 'id'
+        },
+        onUpdate: 'restrict',
+        onDelete: 'restrict'
       },
       hotel_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'hotels',
+          key: 'id'
+        },
+        onUpdate: 'restrict',
+        onDelete: 'restrict'
       },
       review_wisata_desc: {
         type: Sequelize.TEXT

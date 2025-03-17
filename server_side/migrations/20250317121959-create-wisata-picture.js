@@ -10,7 +10,13 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       pic_category_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'pic_categories',
+          key: 'id'
+        },
+        onUpdate: 'RESTRICT',
+        onDelete: 'RESTRICT'
       },
       wisata_id: {
         type: Sequelize.INTEGER

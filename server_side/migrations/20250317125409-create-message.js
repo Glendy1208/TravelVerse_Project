@@ -10,7 +10,13 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       history_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'chat_histories',
+          key: 'id'
+        },
+        onUpdate: 'RESTRICT',
+        onDelete: 'RESTRICT'
       },
       message_text: {
         type: Sequelize.TEXT

@@ -10,10 +10,22 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      // payment_monthly to hotel
+      payment_monthly.belongsTo(models.hotel, {
+        foreignKey: 'hotel_id',
+        as: 'hotel'
+      });
+
+      // payment_monthly to wisata
+      payment_monthly.belongsTo(models.wisata, {
+        foreignKey: 'wisata_id',
+        as: 'wisata'
+      });
     }
   }
   payment_monthly.init({
+    wisata_id: DataTypes.INTEGER,
+    hotel_id: DataTypes.INTEGER,
     payment_acc: DataTypes.BOOLEAN,
     payment_exp: DataTypes.DATE,
     payment_date: DataTypes.DATE,

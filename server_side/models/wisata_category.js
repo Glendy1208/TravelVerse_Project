@@ -10,7 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      // wisa_category to wisata
+      wisata_category.hasMany(models.wisata, {
+        foreignKey: 'category_wisata_id',
+        as: 'wisata'
+      });
     }
   }
   wisata_category.init({

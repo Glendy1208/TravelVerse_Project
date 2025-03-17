@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      chat_history.hasMany(models.message, {
+        foreignKey: 'history_id',
+        as: 'messages'
+      });
     }
   }
   chat_history.init({
