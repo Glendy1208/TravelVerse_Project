@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
 
       // wisata to category wisata
       wisata.belongsTo(models.wisata_category, {
-        foreignKey: 'category_wisata_id',
+        foreignKey: 'wisata_category_id',
         as: 'wisata_category'
       });
 

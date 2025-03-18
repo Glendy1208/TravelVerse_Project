@@ -27,7 +27,7 @@ module.exports = {
         onUpdate: 'RESTRICT',
         onDelete: 'RESTRICT'
       },
-      category_wisata_id: {
+      wisata_category_id: {
         type: Sequelize.INTEGER,
         references: {
           model: 'wisata_categories',
