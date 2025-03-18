@@ -13,9 +13,18 @@ import LogoutOutlined from '@ant-design/icons/LogoutOutlined';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import WalletOutlined from '@ant-design/icons/WalletOutlined';
 
+import { useNavigate } from 'react-router-dom';
+
 // ==============================|| HEADER PROFILE - PROFILE TAB ||============================== //
 
 export default function ProfileTab() {
+
+  const navigate = useNavigate();
+
+  const handleLogoutClick = () => {
+    localStorage.removeItem('isAuthenticated'); // Hapus status login
+    navigate('/login', { replace: true }); // Arahkan ke halaman login
+  }
   return (
     <List component="nav" sx={{ p: 0, '& .MuiListItemIcon-root': { minWidth: 32 } }}>
       <ListItemButton>
@@ -43,7 +52,8 @@ export default function ProfileTab() {
         </ListItemIcon>
         <ListItemText primary="Billing" />
       </ListItemButton>
-      <ListItemButton>
+
+      <ListItemButton onClick={handleLogoutClick}>
         <ListItemIcon>
           <LogoutOutlined />
         </ListItemIcon>

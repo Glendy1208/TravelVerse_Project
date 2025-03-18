@@ -1,9 +1,0 @@
-# Database configuration
-DB_NAME=database_name
-DB_USER=database_user
-DB_PASSWORD=database_password
-DB_HOST=database_host
-DB_PORT=database_port
-
-# Server configuration
-PORT=3000

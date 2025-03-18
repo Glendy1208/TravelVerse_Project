@@ -1,4 +1,5 @@
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 // material-ui
 import Grid from '@mui/material/Grid2';
@@ -14,6 +15,7 @@ import AuthLogin from 'sections/auth/AuthLogin';
 export default function Login() {
 
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLogin = (data) => {
     console.log('User login data:', data);
@@ -31,7 +33,10 @@ export default function Login() {
     // })
     // .catch((error) => console.error('Login error:', error));
 
-    navigate('dashboard/default');
+    setIsLoggedIn(true);
+    localStorage.setItem('isAuthenticated', 'true');
+    console.log(localStorage);
+    navigate('/dashboard', { replace: true }); 
   };
 
   return (
