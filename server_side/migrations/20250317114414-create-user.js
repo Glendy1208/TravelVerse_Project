@@ -30,9 +30,9 @@ module.exports = {
       password: {
         allowNull: false,
         type: Sequelize.STRING,
-        validate: {
-          len: [8] // Minimal 8 karakter
-        }
+        // validate: {
+        //   len: [8] 
+        // }
       },
       name: {
         allowNull: false,
