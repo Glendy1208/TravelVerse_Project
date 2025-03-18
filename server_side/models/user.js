@@ -35,9 +35,9 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       // user to wisata_tiket
-      user.hasMany(models.wisata_tiket, {
+      user.hasMany(models.tiket, {
         foreignKey: 'user_id',
-        as: 'wisata_tiket'
+        as: 'tiket'
       });
     }
   }

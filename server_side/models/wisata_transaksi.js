@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // wisata transaksi to tiket
-      wisata_transaksi.belongsTo(models.wisata_tiket, {
+      wisata_transaksi.belongsTo(models.tiket, {
         foreignKey: 'tiket_id',
         as: 'tiket'
       });
