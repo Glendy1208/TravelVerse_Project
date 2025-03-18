@@ -1,15 +1,18 @@
-const { Users } = require("../models")
+const { user } = require("../models")
 const response = require('../response');
 
-const getAllAuthors = async (req, res) => {
+const getAllUsers = async (req, res) => {
     try {
-      const authors = await Author.findAll();
+      const authors = await user.findAll();
       response(200, authors, 'Authors retrieved successfully', res);
+      res.json({
+        "hai":"hello"
+      })
     } catch (err) {
       response(500, null, err.message, res);
     }
   };
   
   module.exports = {
-    getAllAuthors,
+    getAllUsers,
   };

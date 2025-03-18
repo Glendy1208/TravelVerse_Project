@@ -2,12 +2,12 @@ require('dotenv').config();
 
 const express = require('express');
 const bodyParser = require('body-parser')
-const usersRoute = require('./route/UsersRoute')
+const usersRoute = require('./routes/UsersRoute')
 
 const app = express();
 app.use(bodyParser.json());
 
-app.use('users', usersRoute)
+app.use('/users', usersRoute)
 
 
 
