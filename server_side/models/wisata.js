@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       // wisata to category wisata
       wisata.belongsTo(models.wisata_category, {
         foreignKey: 'category_wisata_id',
-        as: 'category_wisata'
+        as: 'wisata_category'
       });
 
       // wisata to payment monthly
@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
 
       // wisata to tiket
       wisata.hasOne(models.tiket, {
-        foreignKey: 'wisata_id',
+        foreignKey: 'tiket_id',
         as: 'tiket'
       });
     }
