@@ -2,13 +2,12 @@ require('dotenv').config();
 
 const express = require('express');
 const bodyParser = require('body-parser')
+const usersRoute = require('./route/UsersRoute')
 
 const app = express();
 app.use(bodyParser.json());
 
-// USER 
-const userRoute = require('./routes/userRoute');
-app.use('/users', userRoute);
+app.use('users', usersRoute)
 
 // Jalankan server
 const PORT = process.env.PORT 
