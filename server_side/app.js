@@ -5,9 +5,14 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser')
 
 const bodyParser = require('body-parser')
+
+//routes
 const usersRoute = require('./routes/userRoute')
 const authRoutes = require('./routes/authRoutes')
 const protecRoutes = require('./routes/protectedRoutes')
+const usercategoriesRoute = require('./routes/userCategories')
+
+
 const { refreshToken } = require('./controllers/refreshToken')
 
 const app = express();
@@ -26,7 +31,8 @@ app.get('/api/refresh', refreshToken);
 
 app.use('/api', authRoutes);
 app.use('/api', protecRoutes);
-app.use('/users', usersRoute);
+app.use('/api', usercategoriesRoute);
+app.use('/api', usersRoute);
 
 
 

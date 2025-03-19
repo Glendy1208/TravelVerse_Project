@@ -10,6 +10,8 @@ import Link from '@mui/material/Link';
 import InputAdornment from '@mui/material/InputAdornment';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -17,6 +19,7 @@ import Box from '@mui/material/Box';
 // third-party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
+import axios from 'axios';
 
 // project imports
 import IconButton from 'components/@extended/IconButton';
@@ -31,6 +34,7 @@ import EyeInvisibleOutlined from '@ant-design/icons/EyeInvisibleOutlined';
 // ============================|| JWT - REGISTER ||============================ //
 
 export default function AuthRegister() {
+  const [categories, setCategories] = useState([]);
   const [level, setLevel] = useState();
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
@@ -53,87 +57,143 @@ export default function AuthRegister() {
     changePassword('');
   }, []);
 
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get("http://localhost:5430/api/user-categories");
+        setCategories(response.data[0].payload); // Pastikan API mengembalikan array perusahaan
+      } catch (error) {
+        console.error("Error fetching Categories:", error);
+      }
+    };
+  
+    fetchCategories();
+  }, []);
+  
+
   return (
     <>
       <Formik
         initialValues={{
-          firstname: '',
-          lastname: '',
+          name: '',
+          username: '',
           email: '',
-          company: '',
+          user_category_id: '',
           password: '',
           submit: null
         }}
         validationSchema={Yup.object().shape({
-          firstname: Yup.string().max(255).required('First Name is required'),
-          lastname: Yup.string().max(255).required('Last Name is required'),
+          name: Yup.string().max(255).required('First Name is required'),
+          username: Yup.string().max(255).required('Last Name is required'),
           email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
           password: Yup.string()
             .required('Password is required')
             .test('no-leading-trailing-whitespace', 'Password cannot start or end with spaces', (value) => value === value.trim())
             .max(10, 'Password must be less than 10 characters')
         })}
+
+        onSubmit={async (values, { setSubmitting, setErrors }) => {
+          try {
+            const response = await fetch("http://localhost:5430/api/register", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                name: values.name,
+                username: values.username,
+                email: values.email,
+                user_category_id: values.user_category_id,
+                password: values.password
+              }),
+            });
+      
+            const data = await response.json();
+            if (response.ok) {
+              alert("Akun berhasil dibuat, silakan login!");
+            } else {
+              setErrors({ submit: data.message });
+            }
+          } catch (error) {
+            setErrors({ submit: "Terjadi kesalahan server" });
+          }
+      
+          setSubmitting(false);
+        }}
       >
         {({ errors, handleBlur, handleChange, touched, values }) => (
           <form noValidate>
             <Grid container spacing={3}>
               <Grid size={{ xs: 12, md: 6 }}>
                 <Stack sx={{ gap: 1 }}>
-                  <InputLabel htmlFor="firstname-signup">First Name*</InputLabel>
+                  <InputLabel htmlFor="name-signup">Full Name*</InputLabel>
                   <OutlinedInput
-                    id="firstname-login"
-                    type="firstname"
-                    value={values.firstname}
-                    name="firstname"
+                    id="name-login"
+                    type="name"
+                    value={values.name}
+                    name="name"
                     onBlur={handleBlur}
                     onChange={handleChange}
                     placeholder="John"
                     fullWidth
-                    error={Boolean(touched.firstname && errors.firstname)}
+                    error={Boolean(touched.name && errors.name)}
                   />
                 </Stack>
-                {touched.firstname && errors.firstname && (
-                  <FormHelperText error id="helper-text-firstname-signup">
-                    {errors.firstname}
+                {touched.name && errors.name && (
+                  <FormHelperText error id="helper-text-name-signup">
+                    {errors.name}
                   </FormHelperText>
                 )}
               </Grid>
               <Grid size={{ xs: 12, md: 6 }}>
                 <Stack sx={{ gap: 1 }}>
-                  <InputLabel htmlFor="lastname-signup">Last Name*</InputLabel>
+                  <InputLabel htmlFor="username-signup">Username*</InputLabel>
                   <OutlinedInput
                     fullWidth
-                    error={Boolean(touched.lastname && errors.lastname)}
-                    id="lastname-signup"
-                    type="lastname"
-                    value={values.lastname}
-                    name="lastname"
+                    error={Boolean(touched.username && errors.username)}
+                    id="username-signup"
+                    type="username"
+                    value={values.username}
+                    name="username"
                     onBlur={handleBlur}
                     onChange={handleChange}
                     placeholder="Doe"
                     inputProps={{}}
                   />
                 </Stack>
-                {touched.lastname && errors.lastname && (
-                  <FormHelperText error id="helper-text-lastname-signup">
-                    {errors.lastname}
+                {touched.username && errors.username && (
+                  <FormHelperText error id="helper-text-username-signup">
+                    {errors.username}
                   </FormHelperText>
                 )}
               </Grid>
               <Grid size={12}>
                 <Stack sx={{ gap: 1 }}>
-                  <InputLabel htmlFor="company-signup">Company</InputLabel>
-                  <OutlinedInput
-                    fullWidth
-                    error={Boolean(touched.company && errors.company)}
-                    id="company-signup"
-                    value={values.company}
-                    name="company"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    placeholder="Demo Inc."
-                    inputProps={{}}
-                  />
+                  <InputLabel htmlFor="user_category_id-signup">Masuk Sebagai</InputLabel>
+                  <FormControl fullWidth error={Boolean(touched.user_category_id && errors.user_category_id)}>
+                    <Select
+                      id="user_category_id-signup"
+                      name="user_category_id"
+                      value={values.user_category_id}
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      displayEmpty
+                      inputProps={{ 'aria-label': 'Without label' }}
+                    >
+                      <MenuItem value="" disabled>
+                        Pilih Pengguna
+                      </MenuItem>
+                      {categories
+                        .filter(category => category.name_category !== "admin_sistem")
+                        .map(category => (
+                          <MenuItem key={category.id} value={category.id}>
+                            {category.name_category === "operator_wisata" ? "Operator Wisata" :
+                            category.name_category === "wisatawan" ? "Wisatawan" :
+                            category.name_category}
+                          </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
                 </Stack>
                 {touched.company && errors.company && (
                   <FormHelperText error id="helper-text-company-signup">
@@ -232,7 +292,7 @@ export default function AuthRegister() {
               )}
               <Grid size={12}>
                 <AnimateButton>
-                  <Button fullWidth size="large" variant="contained" color="primary">
+                  <Button fullWidth size="large" variant="contained" color="primary" type="submit">
                     Create Account
                   </Button>
                 </AnimateButton>
