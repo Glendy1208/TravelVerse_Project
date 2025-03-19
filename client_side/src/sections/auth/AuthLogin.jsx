@@ -27,6 +27,8 @@ import AnimateButton from 'components/@extended/AnimateButton';
 import EyeOutlined from '@ant-design/icons/EyeOutlined';
 import EyeInvisibleOutlined from '@ant-design/icons/EyeInvisibleOutlined';
 
+import { useNavigate } from 'react-router-dom';
+
 // ============================|| JWT - LOGIN ||============================ //
 
 export default function AuthLogin({ onLogin, isDemo = false }) {
@@ -35,6 +37,30 @@ export default function AuthLogin({ onLogin, isDemo = false }) {
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = (event) => event.preventDefault();
+
+  const navigate = useNavigate();
+
+  const handleLogin = async (email, password) => {
+    try {
+      const response = await fetch("http://localhost:5430/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(email, password), // 🔹 Kirim email & password ke backend
+      });
+  
+      const data = await response.json();
+      console.log(data)
+      if (response.ok) {
+        navigate('/dashboard');
+      } else {
+        console.log("gagal");
+        alert("Login gagal: " + data.message);
+      }
+    } catch (error) {
+      console.error("Login Error:", error);
+    }
+  }; 
 
   return (
     <Formik
@@ -51,7 +77,7 @@ export default function AuthLogin({ onLogin, isDemo = false }) {
           .max(10, 'Password must be less than 10 characters')
       })}
       onSubmit={(values, { setSubmitting }) => {
-        onLogin(values); // Kirim data ke parent (Login)
+        handleLogin(values); // kirim data ke backend
         setSubmitting(false);
       }}
     >

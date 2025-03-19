@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { checkLoginStatus } from '../../utils/auth';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Toolbar from '@mui/material/Toolbar';
@@ -17,6 +18,7 @@ import { handlerDrawerOpen, useGetMenuMaster } from 'api/menu';
 // ==============================|| MAIN LAYOUT ||============================== //
 
 export default function DashboardLayout() {
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const { menuMasterLoading } = useGetMenuMaster();
   const downXL = useMediaQuery((theme) => theme.breakpoints.down('xl'));
@@ -25,6 +27,24 @@ export default function DashboardLayout() {
   useEffect(() => {
     handlerDrawerOpen(!downXL);
   }, [downXL]);
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const loggedInUser = await checkLoginStatus();
+      if (!loggedInUser) {
+        alert("Session expired. Redirecting to login...");
+        navigate("/login");
+      } else {
+        setUser(loggedInUser);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+  
 
   if (menuMasterLoading) return <Loader />;
 

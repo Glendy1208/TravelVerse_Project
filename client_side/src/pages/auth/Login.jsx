@@ -14,31 +14,6 @@ import AuthLogin from 'sections/auth/AuthLogin';
 
 export default function Login() {
 
-  const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const handleLogin = (data) => {
-    console.log('User login data:', data);
-    
-    // fetch('https://example.com/api/login', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(data)
-    // })
-    // .then((response) => response.json())
-    // .then((result) => {
-    //   console.log('Login success:', result);
-    //   navigate('/dashboard')
-    //   // Simpan token ke localStorage jika diperlukan
-    // })
-    // .catch((error) => console.error('Login error:', error));
-
-    setIsLoggedIn(true);
-    localStorage.setItem('isAuthenticated', 'true');
-    console.log(localStorage);
-    navigate('/dashboard', { replace: true }); 
-  };
-
   return (
     <AuthWrapper>
       <Grid container spacing={3}>
@@ -51,7 +26,7 @@ export default function Login() {
           </Stack>
         </Grid>
         <Grid size={12}>
-          <AuthLogin onLogin={handleLogin} />
+          <AuthLogin/>
         </Grid>
       </Grid>
     </AuthWrapper>

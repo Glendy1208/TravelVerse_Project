@@ -21,10 +21,23 @@ export default function ProfileTab() {
 
   const navigate = useNavigate();
 
-  const handleLogoutClick = () => {
-    localStorage.removeItem('isAuthenticated'); // Hapus status login
-    navigate('/login', { replace: true }); // Arahkan ke halaman login
-  }
+  const handleLogout = async () => {
+    try {
+        const response = await fetch("http://localhost:5430/api/logout", {
+            method: "POST",
+            credentials: "include" // Penting untuk menghapus cookie
+        });
+
+        const data = await response.json();
+        console.log(data.message); // "Logout berhasil"
+
+        // Redirect ke halaman login atau update state
+        navigate("/login");
+    } catch (error) {
+        console.error("Logout gagal:", error);
+    }
+  };
+
   return (
     <List component="nav" sx={{ p: 0, '& .MuiListItemIcon-root': { minWidth: 32 } }}>
       <ListItemButton>
@@ -53,7 +66,7 @@ export default function ProfileTab() {
         <ListItemText primary="Billing" />
       </ListItemButton>
 
-      <ListItemButton onClick={handleLogoutClick}>
+      <ListItemButton onClick={handleLogout}>
         <ListItemIcon>
           <LogoutOutlined />
         </ListItemIcon>

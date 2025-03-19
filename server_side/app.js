@@ -1,13 +1,32 @@
 require('dotenv').config();
 
 const express = require('express');
+const cors = require('cors')
+const cookieParser = require('cookie-parser')
+
 const bodyParser = require('body-parser')
-const usersRoute = require('./routes/UsersRoute')
+const usersRoute = require('./routes/userRoute')
+const authRoutes = require('./routes/authRoutes')
+const protecRoutes = require('./routes/protectedRoutes')
+const { refreshToken } = require('./controllers/refreshToken')
 
 const app = express();
 app.use(bodyParser.json());
+app.use(express.json())
+app.use(cookieParser());
 
-app.use('/users', usersRoute)
+app.use(cors({
+  origin: "http://localhost:3000", // 🔹 Harus sesuai dengan frontend
+  credentials: true
+}));
+
+app.use(express.urlencoded({ extended: true }));
+
+app.get('/api/refresh', refreshToken);
+
+app.use('/api', authRoutes);
+app.use('/api', protecRoutes);
+app.use('/users', usersRoute);
 
 
 
