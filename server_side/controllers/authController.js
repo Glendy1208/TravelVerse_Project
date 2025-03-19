@@ -5,9 +5,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { user } = require("../models"); // 🔹 Gunakan "user" sesuai model
 
-JWT_SECRET="secret123"
-JWT_EXPIRES_IN="30m"
-
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -23,13 +20,13 @@ const login = async (req, res) => {
     }
 
     // 🔹 Cek password dengan bcrypt
-    // const isMatch = bcrypt.compareSync(password, foundUser.password);
-    // if (!isMatch) {
-    //   return res.status(401).json({ message: "Email atau password salah" });
-    // }
+    const isMatch = bcrypt.compareSync(password, foundUser.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: "Email atau password salah" });
+    }
 
     // 🔹 Generate JWT token
-    const token = jwt.sign({ id: foundUser.id, email: foundUser.email }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+    const token = jwt.sign({ id: foundUser.id, email: foundUser.email }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
 
     res.cookie("token", token, {
       httpOnly: true, // Tidak bisa diakses JavaScript (aman dari XSS)
@@ -52,7 +49,7 @@ const logout = async (req,res) => {
 
 const register = async (req,res) => {
   try {
-    const { name, username, email, password } = req.body;
+    const { name, username, email, user_category_id ,password } = req.body;
 
     // Cek apakah email sudah digunakan
     const existingUser = await user.findOne({ where: { email } });
@@ -68,6 +65,7 @@ const register = async (req,res) => {
         email,
         name,
         username,
+        user_category_id,
         password: hashedPassword,
     });
 
@@ -77,4 +75,4 @@ const register = async (req,res) => {
 }
 }
 
-module.exports = { login, logout };
+module.exports = { login, logout, register };

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link as RouterLink, useSearchParams } from 'react-router-dom';
+import { Link as RouterLink, useSearchParams, useNavigate } from 'react-router-dom';
 
 // material-ui
 import Button from '@mui/material/Button';
@@ -34,6 +34,7 @@ import EyeInvisibleOutlined from '@ant-design/icons/EyeInvisibleOutlined';
 // ============================|| JWT - REGISTER ||============================ //
 
 export default function AuthRegister() {
+  const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [level, setLevel] = useState();
   const [showPassword, setShowPassword] = useState(false);
@@ -69,6 +70,34 @@ export default function AuthRegister() {
   
     fetchCategories();
   }, []);
+
+  const handleRegis = async (values, setErrors) => {
+    try {
+      const response = await fetch("http://localhost:5430/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: values.name,
+          username: values.username,
+          email: values.email,
+          user_category_id: values.user_category_id,
+          password: values.password
+        }),
+      });
+  
+      const data = await response.json();
+      if (response.ok) {
+        alert("Akun berhasil dibuat, silakan login!");
+        navigate('/login');
+      } else {
+        setErrors({ submit: data.message });
+      }
+    } catch (error) {
+      setErrors({ submit: "Terjadi kesalahan server" });
+    }
+  };
   
 
   return (
@@ -92,37 +121,13 @@ export default function AuthRegister() {
             .max(10, 'Password must be less than 10 characters')
         })}
 
-        onSubmit={async (values, { setSubmitting, setErrors }) => {
-          try {
-            const response = await fetch("http://localhost:5430/api/register", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                name: values.name,
-                username: values.username,
-                email: values.email,
-                user_category_id: values.user_category_id,
-                password: values.password
-              }),
-            });
-      
-            const data = await response.json();
-            if (response.ok) {
-              alert("Akun berhasil dibuat, silakan login!");
-            } else {
-              setErrors({ submit: data.message });
-            }
-          } catch (error) {
-            setErrors({ submit: "Terjadi kesalahan server" });
-          }
-      
+        onSubmit={(values, { setSubmitting, setErrors }) => {
+          handleRegis(values, setErrors);
           setSubmitting(false);
         }}
       >
-        {({ errors, handleBlur, handleChange, touched, values }) => (
-          <form noValidate>
+        {({ errors, handleBlur, handleChange, touched, values, handleSubmit }) => (
+          <form noValidate onSubmit={handleSubmit}>
             <Grid container spacing={3}>
               <Grid size={{ xs: 12, md: 6 }}>
                 <Stack sx={{ gap: 1 }}>

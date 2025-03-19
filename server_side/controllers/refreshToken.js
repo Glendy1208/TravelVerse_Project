@@ -2,8 +2,7 @@ require('dotenv').config();
 
 const jwt = require("jsonwebtoken");
 
-JWT_SECRET="secret123"
-JWT_EXPIRES_IN="30m"
+
 
 const refreshToken = (req, res) => {
   const oldToken = req.cookies.token;
@@ -12,10 +11,10 @@ const refreshToken = (req, res) => {
   }
 
   try {
-    const decoded = jwt.verify(oldToken, JWT_SECRET);
+    const decoded = jwt.verify(oldToken, process.env.JWT_SECRET);
 
     // Buat token baru dengan waktu 30 menit lagi
-    const newToken = jwt.sign({ id: decoded.id, email: decoded.email }, JWT_SECRET, { expiresIn: "30m" });
+    const newToken = jwt.sign({ id: decoded.id, email: decoded.email }, process.env.JWT_SECRET, { expiresIn: "30m" });
 
     res.cookie("token", newToken, {
       httpOnly: true,
