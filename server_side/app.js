@@ -16,9 +16,11 @@ const usercategoriesRoute = require('./routes/userCategories')
 const { refreshToken } = require('./controllers/refreshToken')
 
 const app = express();
+
 app.use(bodyParser.json());
 app.use(express.json())
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({
   origin: "http://localhost:3000", // 🔹 Harus sesuai dengan frontend

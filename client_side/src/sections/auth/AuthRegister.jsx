@@ -31,6 +31,8 @@ import { strengthColor, strengthIndicator } from 'utils/password-strength';
 import EyeOutlined from '@ant-design/icons/EyeOutlined';
 import EyeInvisibleOutlined from '@ant-design/icons/EyeInvisibleOutlined';
 
+import API from "../../service/api/axiosConfig"
+
 // ============================|| JWT - REGISTER ||============================ //
 
 export default function AuthRegister() {
@@ -61,7 +63,7 @@ export default function AuthRegister() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:5430/api/user-categories");
+        const response = await API.get("user-categories");
         setCategories(response.data[0].payload); // Pastikan API mengembalikan array perusahaan
       } catch (error) {
         console.error("Error fetching Categories:", error);

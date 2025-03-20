@@ -2,9 +2,6 @@ require('dotenv').config();
 
 const jwt = require("jsonwebtoken");
 
-JWT_SECRET="secret123"
-JWT_EXPIRES_IN="30m"
-
 const authMiddleware = (req, res, next) => {
   const token = req.cookies.token; // 🔹 Ambil token dari cookie
   if (!token) {
@@ -12,7 +9,7 @@ const authMiddleware = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded; // Simpan data user di `req.user`
     next();
   } catch (error) {

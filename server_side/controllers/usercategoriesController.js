@@ -1,7 +1,7 @@
 const {user_category} = require('../models');
 const response = require('../response');
 
-const  getAllUserCategories = async (req, res) => {
+const getAllUserCategories = async (req, res) => {
     try {
         const data = await user_category.findAll();
         response(200, data, 'Success', res);

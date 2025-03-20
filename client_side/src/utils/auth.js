@@ -1,16 +1,14 @@
+import API from "../service/api/axiosConfig"
+
 export const checkLoginStatus = async () => {
     try {
-      const response = await fetch("http://localhost:5430/api/protected", {
-        method: "GET",
-        credentials: "include", // 🔹 Cookie JWT otomatis dikirim
-      });
+      const response = await API.get("/protected");
   
-      if (!response.ok) {
+      if (response.status !== 200) {
         throw new Error("Session expired. Please log in again.");
       }
   
-      const data = await response.json();
-      console.log("User masih login:", data.user);
+      const data = await response.data;
       return data.user;
     } catch (error) {
       console.error(error.message);

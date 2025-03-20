@@ -28,6 +28,7 @@ import EyeOutlined from '@ant-design/icons/EyeOutlined';
 import EyeInvisibleOutlined from '@ant-design/icons/EyeInvisibleOutlined';
 
 import { useNavigate } from 'react-router-dom';
+import API from "../../service/api/axiosConfig"
 
 // ============================|| JWT - LOGIN ||============================ //
 
@@ -41,17 +42,13 @@ export default function AuthLogin({ onLogin, isDemo = false }) {
   const navigate = useNavigate();
 
   const handleLogin = async (email, password) => {
+    console.log(email,password)
     try {
-      const response = await fetch("http://localhost:5430/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify(email, password), // 🔹 Kirim email & password ke backend
-      });
+      const response = await API.post("/login", { email, password } );
+      
   
-      const data = await response.json();
-      console.log(data)
-      if (response.ok) {
+      const data = await response.data;
+      if (response.status === 200) {
         navigate('/dashboard');
       } else {
         console.log("gagal");
@@ -77,7 +74,7 @@ export default function AuthLogin({ onLogin, isDemo = false }) {
           .max(10, 'Password must be less than 10 characters')
       })}
       onSubmit={(values, { setSubmitting }) => {
-        handleLogin(values); // kirim data ke backend
+        handleLogin(values.email, values.password); // kirim data ke backend
         setSubmitting(false);
       }}
     >
