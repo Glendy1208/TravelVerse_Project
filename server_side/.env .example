@@ -7,6 +7,8 @@ DB_PORT=5432
 
 # Server configuration
 PORT=5430
+SERVER_URL=http://localhost:5430
+FRONTEND_URL=http://localhost:3000
 
 # JWT configuration
 JWT_SECRET=secret123

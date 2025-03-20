@@ -71,7 +71,7 @@ export default function AuthLogin({ onLogin, isDemo = false }) {
         password: Yup.string()
           .required('Password is required')
           .test('no-leading-trailing-whitespace', 'Password cannot start or end with spaces', (value) => value === value.trim())
-          .max(10, 'Password must be less than 10 characters')
+          // .max(10, 'Password must be less than 10 characters')
       })}
       onSubmit={(values, { setSubmitting }) => {
         handleLogin(values.email, values.password); // kirim data ke backend
