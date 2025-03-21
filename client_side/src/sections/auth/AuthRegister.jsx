@@ -74,30 +74,25 @@ export default function AuthRegister() {
   }, []);
 
   const handleRegis = async (values, setErrors) => {
+  
     try {
-      const response = await fetch("http://localhost:5430/api/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: values.name,
-          username: values.username,
-          email: values.email,
-          user_category_id: values.user_category_id,
-          password: values.password
-        }),
+      const response = await API.post("/register", {
+        name: values.name,
+        username: values.username,
+        email: values.email,
+        user_category_id: values.user_category_id,
+        password: values.password,
       });
   
-      const data = await response.json();
-      if (response.ok) {
+      if (response.status === 201 || response.status === 200) {
         alert("Akun berhasil dibuat, silakan login!");
-        navigate('/login');
+        navigate("/login");
       } else {
-        setErrors({ submit: data.message });
+        setErrors({ submit: response.data.message || "Terjadi kesalahan" });
       }
     } catch (error) {
-      setErrors({ submit: "Terjadi kesalahan server" });
+      console.error("Error saat registrasi:", error);
+      setErrors({ submit: error.response?.data?.message || "Terjadi kesalahan server" });
     }
   };
   
@@ -123,8 +118,8 @@ export default function AuthRegister() {
             .max(10, 'Password must be less than 10 characters')
         })}
 
-        onSubmit={(values, { setSubmitting, setErrors }) => {
-          handleRegis(values, setErrors);
+        onSubmit={async (values, { setSubmitting, setErrors }) => {
+          await handleRegis(values, setErrors);
           setSubmitting(false);
         }}
       >

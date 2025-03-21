@@ -38,7 +38,6 @@ export default function AuthLogin({ onLogin, isDemo = false }) {
   const [showPassword, setShowPassword] = React.useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
-  const [errorMessages, setErrorMessages] = useState({ email: "", password: "" });
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = (event) => event.preventDefault();

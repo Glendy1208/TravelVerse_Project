@@ -50,31 +50,31 @@ const logout = async (req,res) => {
 }
 
 const register = async (req,res) => {
-  try {
-    const { name, username, email, user_category_id ,password } = req.body;
+    try {
+      const { name, username, email, user_category_id ,password } = req.body;
 
-    // Cek apakah email sudah digunakan
-    const existingUser = await user.findOne({ where: { email } });
-    if (existingUser) {
-        return res.status(400).json({ message: "Email sudah terdaftar" });
-    }
+      // Cek apakah email sudah digunakan
+      const existingUser = await user.findOne({ where: { email } });
+      if (existingUser) {
+          return res.status(400).json({ message: "Email sudah terdaftar" });
+      }
 
-    // Hash password sebelum disimpan
-    const hashedPassword = bcrypt.hashSync(password, 10);
+      // Hash password sebelum disimpan
+      const hashedPassword = bcrypt.hashSync(password, 10);
 
-    // Simpan user baru ke database
-    const newUser = await user.create({
-        email,
-        name,
-        username,
-        user_category_id,
-        password: hashedPassword,
-    });
+      // Simpan user baru ke database
+      const newUser = await user.create({
+          email,
+          name,
+          username,
+          user_category_id,
+          password: hashedPassword,
+      });
 
-    res.status(201).json({ message: "Registrasi berhasil", user: newUser });
-  } catch (error) {
-    res.status(500).json({ message: "Terjadi kesalahan server", error: error.message });
-}
+      res.status(201).json({ message: "Registrasi berhasil", user: newUser });
+    } catch (error) {
+      res.status(500).json({ message: "Terjadi kesalahan server", error: error.message });
+  }
 }
 
 module.exports = { login, logout, register };

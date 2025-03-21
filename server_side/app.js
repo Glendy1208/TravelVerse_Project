@@ -24,8 +24,10 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({
-  origin: process.env.FRONTEND_URL, // 🔹 Harus sesuai dengan frontend
-  credentials: true
+  origin: process.env.FRONTEND_URL || "http://localhost:3000",
+  credentials: true,
+  allowedHeaders: 'Content-Type,Authorization',
+  methods: "GET, POST, PUT, DELETE, OPTIONS",
 }));
 
 app.use(express.urlencoded({ extended: true }));
@@ -40,7 +42,7 @@ app.use('/api', usersRoute);
 app.use("/admin",adminRoutes)
 
 // Jalankan server
-const SERVER_URL = process.env.SERVER_URL
+const SERVER_URL = process.env.SERVER_URL || "http://localhost:5430"
 const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server running on ${SERVER_URL}`);
