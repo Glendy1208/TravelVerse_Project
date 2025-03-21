@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 // material-ui
@@ -35,6 +36,9 @@ import API from "../../service/api/axiosConfig"
 export default function AuthLogin({ onLogin, isDemo = false }) {
   const [checked, setChecked] = React.useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+  const [errorMessages, setErrorMessages] = useState({ email: "", password: "" });
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = (event) => event.preventDefault();
@@ -42,22 +46,57 @@ export default function AuthLogin({ onLogin, isDemo = false }) {
   const navigate = useNavigate();
 
   const handleLogin = async (email, password) => {
-    console.log(email,password)
     try {
-      const response = await API.post("/login", { email, password } );
-      
+      const response = await API.post("/login", { email, password });
   
-      const data = await response.data;
       if (response.status === 200) {
-        navigate('/dashboard');
-      } else {
-        console.log("gagal");
-        alert("Login gagal: " + data.message);
+        console.log("Login berhasil");
+        setIsLoggedIn(true);
       }
     } catch (error) {
-      console.error("Login Error:", error);
+      if (error.response) {
+        console.error("Login Error:", error.response.data.message);
+        alert("Login gagal: " + error.response.data.message);
+      } else {
+        console.error("Network Error:", error);
+        alert("Terjadi kesalahan pada server");
+      }
     }
-  }; 
+  };
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      const fetchUser = async () => {
+        try {
+          const response = await API.get("/getUsers");
+          if (response.status === 200) {
+            const userData = response.data[0].payload[0]; // Sesuaikan dengan response API
+            setUser(userData);
+
+            // Navigasi berdasarkan role setelah user didapatkan
+            switch (userData.user_category_id) {
+              case 1:
+                navigate("/admin/dashboard");
+                break;
+              case 2:
+                navigate("/operator/dashboard");
+                break;
+              case 3:
+                navigate("/wisatawan");
+                break;
+              default:
+                navigate("/login");
+            }
+          }
+        } catch (error) {
+          console.error("Error fetching users:", error);
+        }
+      };
+
+      fetchUser();
+    }
+  }, [isLoggedIn, navigate]);
+
 
   return (
     <Formik

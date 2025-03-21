@@ -15,15 +15,15 @@ const LoginRoutes = {
   children: [
     {
       index: true,
-      element: isAuthenticated ? <Navigate to="/dashboard" replace /> : <Navigate to="/login" replace />
+      element: <Navigate to="/login" replace />
     },
     {
       path: 'login',
-      element: isAuthenticated ? <Navigate to="/dashboard" replace /> : <LoginPage />
+      element: <LoginPage />
     },
     {
       path: 'register',
-      element: isAuthenticated ? <Navigate to="/dashboard" replace /> : <RegisterPage />
+      element: <RegisterPage />
     }
   ]
 };
