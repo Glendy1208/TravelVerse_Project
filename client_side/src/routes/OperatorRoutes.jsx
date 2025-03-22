@@ -2,18 +2,18 @@ import { lazy } from 'react';
 
 // project imports
 import Loadable from 'components/Loadable';
-import DashboardLayout from 'layout/Dashboard';
+import DashboardLayout from '../layout/OperatorDashboard';
 
 // render- Dashboard
-const DashboardDefault = Loadable(lazy(() => import('pages/admin/dashboard/default')));
+const DashboardDefault = Loadable(lazy(() => import('pages/operator/dashboard/default')));
 
 // render - component-overview
-const Color = Loadable(lazy(() => import('pages/admin/component-overview/color')));
-const Typography = Loadable(lazy(() => import('pages/admin/component-overview/typography')));
-const Shadow = Loadable(lazy(() => import('pages/admin/component-overview/shadows')));
+const Keuangan = Loadable(lazy(() => import('pages/operator/component-overview/keuangan')));
+const Wisata = Loadable(lazy(() => import('pages/operator/component-overview/wisata')));
+const Transaksi = Loadable(lazy(() => import('pages/operator/component-overview/transaksi')));
 
 // render - sample page
-const SamplePage = Loadable(lazy(() => import('pages/admin/extra-pages/sample-page')));
+const SamplePage = Loadable(lazy(() => import('pages/operator/extra-pages/sample-page')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -27,23 +27,25 @@ const OperatorRoutes = {
     },
     {
       path: 'dashboard',
-      element: <DashboardDefault />
+      element: <DashboardDefault />,
+      children: [
+        {
+          path: 'default',
+          element: <DashboardDefault/>
+        }
+      ]
     },
     {
-      path: 'typography',
-      element: <Typography />
+      path: 'wisata',
+      element: <Wisata />
     },
     {
-      path: 'color',
-      element: <Color />
+      path: 'transaksi',
+      element: <Transaksi />
     },
     {
-      path: 'shadow',
-      element: <Shadow />
-    },
-    {
-      path: 'sample-page',
-      element: <SamplePage />
+      path: 'keuangan',
+      element: <Keuangan />
     }
   ]
 };

@@ -2,7 +2,7 @@ import { lazy } from 'react';
 
 // project imports
 import Loadable from 'components/Loadable';
-import DashboardLayout from '../layout/AdminDashboard';
+import DashboardLayout from 'layout/Dashboard';
 
 // render- Dashboard
 const DashboardDefault = Loadable(lazy(() => import('pages/admin/dashboard/default')));
@@ -17,8 +17,8 @@ const SamplePage = Loadable(lazy(() => import('pages/admin/extra-pages/sample-pa
 
 // ==============================|| MAIN ROUTING ||============================== //
 
-const AdminRoutes = {
-  path: '/admin',
+const WisataRoutes = {
+  path: '/wisata',
   element: <DashboardLayout />,
   children: [
     {
@@ -27,13 +27,7 @@ const AdminRoutes = {
     },
     {
       path: 'dashboard',
-      element: <DashboardDefault />,
-      children: [
-        {
-          path: 'default',
-          element: <DashboardDefault/>
-        }
-      ]
+      element: <DashboardDefault />
     },
     {
       path: 'typography',
@@ -54,4 +48,4 @@ const AdminRoutes = {
   ]
 };
 
-export default AdminRoutes;
+export default WisataRoutes;
