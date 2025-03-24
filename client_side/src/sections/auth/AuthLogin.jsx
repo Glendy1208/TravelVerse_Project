@@ -81,7 +81,7 @@ export default function AuthLogin({ onLogin, isDemo = false }) {
                 navigate("/operator/dashboard");
                 break;
               case 3:
-                navigate("/wisatawan");
+                navigate("/wisatawan/wisata");
                 break;
               default:
                 navigate("/login");

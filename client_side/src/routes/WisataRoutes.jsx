@@ -8,7 +8,7 @@ import DashboardLayout from 'layout/Dashboard';
 const DashboardDefault = Loadable(lazy(() => import('pages/admin/dashboard/default')));
 
 // render - component-overview
-const Color = Loadable(lazy(() => import('pages/admin/component-overview/color')));
+const Wisata = Loadable(lazy(() => import('pages/wisata/component-overview/wisata')));
 const Typography = Loadable(lazy(() => import('pages/admin/component-overview/typography')));
 const Shadow = Loadable(lazy(() => import('pages/admin/component-overview/shadows')));
 
@@ -18,8 +18,7 @@ const SamplePage = Loadable(lazy(() => import('pages/admin/extra-pages/sample-pa
 // ==============================|| MAIN ROUTING ||============================== //
 
 const WisataRoutes = {
-  path: '/wisata',
-  element: <DashboardLayout />,
+  path: '/wisatawan',
   children: [
     {
       index: true, // Gunakan index untuk halaman default admin
@@ -30,20 +29,8 @@ const WisataRoutes = {
       element: <DashboardDefault />
     },
     {
-      path: 'typography',
-      element: <Typography />
-    },
-    {
-      path: 'color',
-      element: <Color />
-    },
-    {
-      path: 'shadow',
-      element: <Shadow />
-    },
-    {
-      path: 'sample-page',
-      element: <SamplePage />
+      path: 'wisata',
+      element: <Wisata />
     }
   ]
 };
