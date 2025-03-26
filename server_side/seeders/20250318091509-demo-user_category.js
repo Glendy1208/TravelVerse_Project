@@ -12,7 +12,7 @@ module.exports = {
       }, 
       {
         id:2,
-        name_category: 'operator_wisata',
+        name_category: 'operator',
         createdAt: new Date(),
         updatedAt: new Date()
       },

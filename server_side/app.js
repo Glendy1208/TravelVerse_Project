@@ -38,8 +38,7 @@ app.use('/api', authRoutes);
 app.use('/api', protecRoutes);
 app.use('/api', usercategoriesRoute);
 app.use('/api', usersRoute);
-
-app.use("/admin",adminRoutes)
+app.use("/api",adminRoutes)
 
 // Jalankan server
 const SERVER_URL = process.env.SERVER_URL || "http://localhost:5430"
