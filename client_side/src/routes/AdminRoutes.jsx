@@ -8,12 +8,9 @@ import DashboardLayout from '../layout/AdminDashboard';
 const DashboardDefault = Loadable(lazy(() => import('pages/admin/dashboard/default')));
 
 // render - component-overview
-const Color = Loadable(lazy(() => import('pages/admin/component-overview/color')));
-const Typography = Loadable(lazy(() => import('pages/admin/component-overview/typography')));
-const Shadow = Loadable(lazy(() => import('pages/admin/component-overview/shadows')));
-
-// render - sample page
-const SamplePage = Loadable(lazy(() => import('pages/admin/extra-pages/sample-page')));
+const Operator = Loadable(lazy(() => import('pages/admin/component-overview/operator')));
+const Wisatawan = Loadable(lazy(() => import('pages/admin/component-overview/wisatawan')));
+const WisataCategory = Loadable(lazy(() => import('pages/admin/component-overview/wisata_category')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -36,20 +33,16 @@ const AdminRoutes = {
       ]
     },
     {
-      path: 'typography',
-      element: <Typography />
+      path: 'operator',
+      element: <Operator />
     },
     {
-      path: 'color',
-      element: <Color />
+      path: 'wisatawan',
+      element: <Wisatawan />
     },
     {
-      path: 'shadow',
-      element: <Shadow />
-    },
-    {
-      path: 'sample-page',
-      element: <SamplePage />
+      path: 'wisata_category',
+      element: <WisataCategory />
     }
   ]
 };

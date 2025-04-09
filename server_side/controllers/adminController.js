@@ -1,4 +1,4 @@
-const {user} = require('../models');
+const {user, wisata_category} = require('../models');
 const response = require('../response');
 
 const getAllOperators = async (req, res) => {
@@ -63,8 +63,63 @@ const deleteAccountByAdmin = async (req, res) => {
     }
 }
 
+const getAllWisataCategories = async (req, res) => {
+    try {
+        const data = await wisata_category.findAll();
+        response(200, data, 'Success', res);
+    }
+    catch (error) {
+        response(500, [], error.message, res);
+    }
+}
+
+const createWisataCategory = async (req, res) => {
+    try {
+        const { name_category_wisata } = req.body;
+        const data = await wisata_category.create({ name_category_wisata });
+        response(200, data, 'Success', res);
+    }
+    catch (error) {
+        response(500, [], error.message, res);
+    }
+}
+
+const deleteWisataCategory = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const data = await wisata_category.destroy({
+            where: {
+                id
+            }
+        });
+        response(200, data, 'Success', res);
+    }
+    catch (error) {
+        response(500, [], error.message, res);
+    }
+}
+
+const editWisataCategory = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { name_category_wisata } = req.body;
+        const data = await wisata_category.update(
+            { name_category_wisata },
+            { where: { id } }
+        );
+        response(200, data, 'Success', res);
+    }
+    catch (error) {
+        response(500, [], error.message, res);
+    }
+}
+
 module.exports = {
     getAllOperators,
     getAllWisatawans,
-    deleteAccountByAdmin
+    deleteAccountByAdmin,
+    getAllWisataCategories,
+    createWisataCategory,
+    deleteWisataCategory,
+    editWisataCategory
 }

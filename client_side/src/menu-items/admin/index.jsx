@@ -1,11 +1,12 @@
 // project import
 import dashboard from './dashboard';
-import utilities from './utilities';
+import managemnt from './management';
+import member from './member';
 
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems = {
-  items: [dashboard, utilities]
+  items: [dashboard, member, managemnt]
 };
 
 export default menuItems;

@@ -22,7 +22,7 @@ module.exports = {
       {
         id: 2,
         user_category_id: 2,
-        email: "operator1@gamil.com",
+        email: "operator1@gmail.com",
         password: hashedPasswordOperator,
         name: "Operator1",
         username: "Operator1",
