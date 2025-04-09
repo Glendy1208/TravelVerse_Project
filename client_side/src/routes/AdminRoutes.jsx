@@ -11,9 +11,6 @@ const DashboardDefault = Loadable(lazy(() => import('pages/admin/dashboard/defau
 const Operator = Loadable(lazy(() => import('pages/admin/component-overview/operator')));
 const Wisatawan = Loadable(lazy(() => import('pages/admin/component-overview/wisatawan')));
 
-// render - sample page
-const SamplePage = Loadable(lazy(() => import('pages/admin/extra-pages/sample-page')));
-
 // ==============================|| MAIN ROUTING ||============================== //
 
 const AdminRoutes = {
