@@ -6,6 +6,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { PlusSquareOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
 // Dummy data wisata
 const wisataList = [
@@ -16,12 +17,20 @@ const wisataList = [
 ];
 
 export default function WisataPage() {
+
+  const navigate = useNavigate()
+
+  const handleRegis = async () => {
+    navigate('/operator/daftar-wisata');
+  }
+
   return (
+    
     <Box sx={{ p: 3 }}>
       {/* Header */}
       <Grid container justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
         <Typography variant="h4">Daftar Wisata</Typography>
-        <Button variant="contained" color="primary" startIcon={<PlusSquareOutlined />}>
+        <Button variant="contained" color="primary" startIcon={<PlusSquareOutlined />} onClick={handleRegis}>
           Daftarkan Wisatamu
         </Button>
       </Grid>

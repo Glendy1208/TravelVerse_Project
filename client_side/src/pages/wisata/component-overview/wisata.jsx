@@ -11,7 +11,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import IconButton from 'components/@extended/IconButton';
 import LogoutOutlined from '@ant-design/icons/LogoutOutlined';
@@ -82,7 +81,7 @@ export default function WisataPage() {
                 positions: 'absolute',
                 color: 'white',
                 backgroundColor: '#d32f2f', // Warna merah khas logout
-                width: '6vw',
+                width: '4vw',
                 borderRadius: '10px',
                 transition: '0.3s',
                 '&:hover': {
@@ -91,7 +90,7 @@ export default function WisataPage() {
                 padding: '10px',
                 boxShadow: '2px 2px 5px rgba(0,0,0,0.2)',
                 height: '50px',
-                left: '-200px',
+                left: '-220px',
                 borderRadius: '20px'
               }}
               onClick={handleLogout}

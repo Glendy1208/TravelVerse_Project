@@ -11,7 +11,6 @@ const DashboardDefault = Loadable(lazy(() => import('pages/operator/dashboard/de
 const Keuangan = Loadable(lazy(() => import('pages/operator/component-overview/keuangan')));
 const Wisata = Loadable(lazy(() => import('pages/operator/component-overview/wisata')));
 const Transaksi = Loadable(lazy(() => import('pages/operator/component-overview/transaksi')));
-
 // render - sample page
 const SamplePage = Loadable(lazy(() => import('pages/operator/extra-pages/sample-page')));
 
