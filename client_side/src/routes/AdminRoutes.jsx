@@ -10,6 +10,7 @@ const DashboardDefault = Loadable(lazy(() => import('pages/admin/dashboard/defau
 // render - component-overview
 const Operator = Loadable(lazy(() => import('pages/admin/component-overview/operator')));
 const Wisatawan = Loadable(lazy(() => import('pages/admin/component-overview/wisatawan')));
+const WisataCategory = Loadable(lazy(() => import('pages/admin/component-overview/wisata_category')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -38,6 +39,10 @@ const AdminRoutes = {
     {
       path: 'wisatawan',
       element: <Wisatawan />
+    },
+    {
+      path: 'wisata_category',
+      element: <WisataCategory />
     }
   ]
 };

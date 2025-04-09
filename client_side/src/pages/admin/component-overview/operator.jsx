@@ -13,15 +13,17 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import API from "../../../api/axios"; // pastikan path API benar
 
-// ==============================|| OPERATOR PAGE ||============================== //
 export default function Operator() {
   const [operators, setOperators] = useState([]);
 
   useEffect(() => {
-    // Memanggil API untuk mendapatkan data operators
+    fetchOperators();
+  }, []);
+
+  const fetchOperators = () => {
     API.get('/api/admin/operators', { withCredentials: true })
       .then(response => {
-        const fetchedOperators = response.data[0].payload; // Mengakses payload
+        const fetchedOperators = response.data[0].payload;
         setOperators(fetchedOperators);
       })
       .catch(error => {
@@ -31,7 +33,21 @@ export default function Operator() {
           console.error('An error occurred:', error);
         }
       });
-  }, []); // Efek dijalankan sekali setelah komponen pertama kali dimuat
+  };
+
+  const handleDelete = (id) => {
+    if (window.confirm('Are you sure you want to delete this operator?')) {
+      API.delete(`/api/admin/delete/${id}`, { withCredentials: true })
+        .then(() => {
+          alert('Operator deleted successfully.');
+          fetchOperators(); // Refresh the list after deletion
+        })
+        .catch(error => {
+          console.error('Error deleting operator:', error);
+          alert('Failed to delete operator.');
+        });
+    }
+  };
 
   return (
     <Box sx={{ padding: 2 }}>
@@ -61,7 +77,7 @@ export default function Operator() {
                 <TableCell>
                   <Stack direction="row" spacing={2}>
                     <button>Show wisata/hotel</button>
-                    <button>Delete</button>
+                    <button onClick={() => handleDelete(operator.id)}>Delete</button>
                   </Stack>
                 </TableCell>
               </TableRow>

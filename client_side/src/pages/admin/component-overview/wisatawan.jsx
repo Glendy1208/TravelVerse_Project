@@ -59,7 +59,6 @@ export default function Wisatawan() {
                 <TableCell>{wisatawan1.email}</TableCell>
                 <TableCell>
                   <Stack direction="row" spacing={2}>
-                    <button>Show wisata/hotel</button>
                     <button>Delete</button>
                   </Stack>
                 </TableCell>
