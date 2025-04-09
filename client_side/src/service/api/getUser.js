@@ -1,17 +1,25 @@
 import API from '../api/axiosConfig';
+import { useEffect, useState } from "react";
 
-export const getUsers = async () => {
-    try {
+const useUser = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
         const response = await API.get("/getUsers");
-    
-        if (response.status !== 200) {
-          throw new Error("Session expired. Please log in again.");
+        if (response.status === 200) {
+          setUser(response.data[0].payload[0]);
         }
-    
-        const data = await response.data;
-        return data.user;
       } catch (error) {
-        console.error(error.message);
-        return null; // 🔹 Jika token expired, kembalikan null
+        console.error("Error fetching users:", error);
       }
+    };
+
+    fetchUsers();
+  }, []);
+
+  return user;
 };
+
+export default useUser;

@@ -12,11 +12,13 @@ import OrdersTable from 'sections/dashboard/default/OrdersTable';
 import GiftOutlined from '@ant-design/icons/GiftOutlined';
 import MessageOutlined from '@ant-design/icons/MessageOutlined';
 import SettingOutlined from '@ant-design/icons/SettingOutlined';
+import useUser from '../../../service/api/getUser';
 
 const avatarSX = { width: 36, height: 36, fontSize: '1rem' };
 const actionSX = { mt: 0.75, ml: 1, top: 'auto', right: 'auto', alignSelf: 'flex-start', transform: 'none' };
 
 export default function Transaksi() {
+  const user = useUser();
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
       {/* Recent Orders */}
@@ -35,7 +37,7 @@ export default function Transaksi() {
       <Grid size={{ xs: 12, md: 5, lg: 4 }}>
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid>
-            <Typography variant="h5">Transaction History</Typography>
+            <Typography variant="h5">Transaction History {user?.username}</Typography>
           </Grid>
           <Grid />
         </Grid>
