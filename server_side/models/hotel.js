@@ -59,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
     acc_id: DataTypes.INTEGER,
     hotel_name: DataTypes.STRING,
     hotel_location: DataTypes.STRING,
-    hotel_koordinat: DataTypes.STRING,
+    hotel_map: DataTypes.STRING,
     hotel_desc: DataTypes.TEXT
   }, {
     sequelize,

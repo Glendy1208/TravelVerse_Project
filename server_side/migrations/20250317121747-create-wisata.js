@@ -42,7 +42,7 @@ module.exports = {
       wisata_location: {
         type: Sequelize.STRING
       },
-      wisata_koordinat: {
+      wisata_map: {
         type: Sequelize.STRING
       },
       wisata_desc: {

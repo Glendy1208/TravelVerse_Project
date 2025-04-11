@@ -30,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
   wisata_picture.init({
     pic_category_id: DataTypes.INTEGER,
     wisata_id: DataTypes.INTEGER,
+    hotel_id: DataTypes.INTEGER,
     path_picture: DataTypes.STRING
   }, {
     sequelize,

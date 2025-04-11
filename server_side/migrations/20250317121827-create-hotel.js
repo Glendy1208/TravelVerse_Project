@@ -42,7 +42,7 @@ module.exports = {
       hotel_location: {
         type: Sequelize.STRING
       },
-      hotel_koordinat: {
+      hotel_map: {
         type: Sequelize.STRING
       },
       hotel_desc: {

@@ -60,7 +60,7 @@ module.exports = (sequelize, DataTypes) => {
     category_wisata_id: DataTypes.INTEGER,
     wisata_name: DataTypes.STRING,
     wisata_location: DataTypes.STRING,
-    wisata_koordinat: DataTypes.STRING,
+    wisata_map: DataTypes.STRING,
     wisata_desc: DataTypes.TEXT,
     wisata_harga: DataTypes.STRING
   }, {

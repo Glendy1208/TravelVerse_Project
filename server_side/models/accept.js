@@ -24,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   accept.init({
-    acc_info: DataTypes.STRING
+    acc_status: DataTypes.STRING,
+    url_proof: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'accept',
