@@ -119,7 +119,7 @@ export default function Wisata_category() {
       }
     } catch (error) {
       console.error('Error adding category:', error);
-      alert(`Gagal menambahkan kategori: ${error.response?.data?.message || error.message}`);
+      alert(`Gagal menambahkan kategori`);
     } finally {
       setIsSubmitting(false);
     }
@@ -147,7 +147,7 @@ export default function Wisata_category() {
       }
     } catch (error) {
       console.error('Error updating category:', error);
-      alert(`Gagal memperbarui kategori: ${error.response?.data?.message || error.message}`);
+      alert(`Gagal memperbarui kategori`);
     } finally {
       setIsSubmitting(false);
     }
