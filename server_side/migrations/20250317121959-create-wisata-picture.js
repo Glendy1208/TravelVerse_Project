@@ -19,7 +19,22 @@ module.exports = {
         onDelete: 'RESTRICT'
       },
       wisata_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'wisatas',
+          key: 'id'
+        },
+        onUpdate: 'RESTRICT',
+        onDelete: 'RESTRICT'
+      },
+      hotel_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'hotels',
+          key: 'id'
+        },
+        onUpdate: 'RESTRICT',
+        onDelete: 'RESTRICT'
       },
       path_picture: {
         type: Sequelize.STRING

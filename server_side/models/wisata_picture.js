@@ -15,6 +15,16 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'pic_category_id',
         as: 'pic_category'
       });
+      // wisata picture to wisata
+      wisata_picture.belongsTo(models.wisata, {
+        foreignKey: 'wisata_id',
+        as: 'wisata'
+      });
+      // wisata picture to hotel
+      wisata_picture.belongsTo(models.hotel, {
+        foreignKey: 'hotel_id',
+        as: 'hotel'
+      });
     }
   }
   wisata_picture.init({

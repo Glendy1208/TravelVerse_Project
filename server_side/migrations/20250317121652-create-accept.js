@@ -9,7 +9,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      acc_info: {
+      acc_status: {
+        type: Sequelize.STRING
+      },
+      url_proof: {
         type: Sequelize.STRING
       },
       createdAt: {

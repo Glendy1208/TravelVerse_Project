@@ -45,6 +45,12 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'tiket_id',
         as: 'tiket'
       });
+
+      // wisata to wisata picture
+      wisata.hasMany(models.wisata_picture, {
+        foreignKey: 'wisata_id',
+        as: 'wisata_picture'
+      });
     }
 
   }
